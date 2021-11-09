@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-{{--    {{ Breadcrumbs::render('user.index') }}--}}
+    {{--    {{ Breadcrumbs::render('user.index') }}--}}
     <h2>Все товары</h2>
     <hr>
     <br>
@@ -17,7 +17,7 @@
             <tr>
                 <th width="5%">ID</th>
                 <th width="40%">Имя</th>
-{{--                <th width="25%">Роль</th>--}}
+                {{--                <th width="25%">Роль</th>--}}
                 <th width="15%"></th>
                 <th width="15%"></th>
             </tr>
@@ -182,7 +182,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.items.index') }}",
+                    url: "{{ route('admin.categories.index') }}",
                 },
                 columns: [
                     {

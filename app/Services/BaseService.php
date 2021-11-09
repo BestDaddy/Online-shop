@@ -87,5 +87,7 @@ interface BaseService
      * @return Model
      */
     public function updateOrCreate(array $params,  array $attributes): Model;
+
+    public function dataTables($table_name);
 }
 

@@ -127,5 +127,28 @@ class BaseServiceImpl implements BaseService
     {
         return $this->model->updateOrCreate($params, $attributes);
     }
+
+    public function dataTables($table_name)
+    {
+        if(request()->ajax()) {
+            return datatables()->of($this->model->query())
+                ->addColumn('edit', function($data){
+                    return  '<button
+                         class=" btn btn-primary btn-sm btn-block "
+                         data-id="'.$data->id.'"
+                         onclick="editModel(event.target)">
+                         <i class="fas fa-edit" data-id="'.$data->id.'"></i> Изменить</button>';
+                })
+                ->addColumn('more', function ($data) use ($table_name) {
+                    return '<a
+                        class="text-decoration-none"
+                        href="'.route('admin.'. $table_name .'.show', $data->id).'">
+                        <button class="btn btn-primary btn-sm btn-block">Подробнее</button></a>';
+                })
+                ->rawColumns(['more', 'edit'])
+                ->make(true);
+        }
+        return view('admin.' . $table_name .'.index');
+    }
 }
 
