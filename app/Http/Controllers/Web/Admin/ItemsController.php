@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Admin;
 
 
 use App\Http\Controllers\Controller;
@@ -40,5 +40,16 @@ class ItemsController extends Controller
         return view('admin.items.index');
     }
 
+    public function show($id) {
 
+    }
+
+    public function store(Request $request) {
+
+    }
+
+    public function edit($id): \Illuminate\Http\JsonResponse
+    {
+        return $this->itemsService->findJson($id);
+    }
 }

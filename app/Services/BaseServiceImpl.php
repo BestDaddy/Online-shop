@@ -61,9 +61,14 @@ class BaseServiceImpl implements BaseService
      */
     public function find($id): ?Model
     {
-        $model = $this->model->find($id);
+        $model = $this->model->findOrFail($id);
 
         return $model;
+    }
+
+    public function findJson($id) : \Illuminate\Http\JsonResponse
+    {
+        return response()->json($this->find($id));
     }
 
     public function findWith($id, array $relationships)

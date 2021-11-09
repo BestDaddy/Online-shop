@@ -3,6 +3,7 @@
 
 namespace App\Services;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 
 interface BaseService
 {
@@ -54,6 +55,12 @@ interface BaseService
      * @return Model
      */
     public function find($id): ?Model;
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function findJson($id): ?JsonResponse;
 
     /**
      * @param $id

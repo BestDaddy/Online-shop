@@ -2,7 +2,7 @@
 
 @section('content')
 {{--    {{ Breadcrumbs::render('user.index') }}--}}
-    <h2>Все пользователи</h2>
+    <h2>Все товары</h2>
     <hr>
     <br>
     <div class="row" style="clear: both;">
@@ -18,8 +18,8 @@
                 <th width="5%">ID</th>
                 <th width="40%">Имя</th>
 {{--                <th width="25%">Роль</th>--}}
-{{--                <th width="15%"></th>--}}
-{{--                <th width="15%"></th>--}}
+                <th width="15%"></th>
+                <th width="15%"></th>
             </tr>
             </thead>
         </table>
@@ -100,7 +100,7 @@
 @endsection
 
 
-@section('scripts')
+@section('sphp cripts')
     <script>
         function add() {
             $('#form-errors').html("");
@@ -141,26 +141,26 @@
         {{--}--}}
 
 
-        {{--function editUser (event) {--}}
-        {{--    $('#collapseExample').show();--}}
-        {{--    $('#staticBackdropLabel').text("Редактировать пользователя");--}}
-        {{--    $('#form-errors').html("");--}}
-        {{--    var id  = $(event).data("id");--}}
-        {{--    let _url = `users/${id}/edit`;--}}
-        {{--    $.ajax({--}}
-        {{--        url: _url,--}}
-        {{--        type: "GET",--}}
-        {{--        success: function(response) {--}}
-        {{--            if(response) {--}}
-        {{--                $('#user_id').val(response.id);--}}
-        {{--                $('#name').val(response.name);--}}
-        {{--                $('#email').val(response.email);--}}
-        {{--                $('#role_id').val(response.role_id);--}}
-        {{--                $('#post-modal').modal('show');--}}
-        {{--            }--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--}--}}
+        function editModel (event) {
+            $('#collapseExample').show();
+            $('#staticBackdropLabel').text("Редактировать пользователя");
+            $('#form-errors').html("");
+            var id  = $(event).data("id");
+            let _url = `/admin/items/${id}/edit`;
+            $.ajax({
+                url: _url,
+                type: "GET",
+                success: function(response) {
+                    if(response) {
+                        $('#user_id').val(response.id);
+                        $('#name').val(response.name);
+                        $('#email').val(response.email);
+                        $('#role_id').val(response.role_id);
+                        $('#post-modal').modal('show');
+                    }
+                }
+            });
+        }
         {{--function save() {--}}
         {{--    var id = $('#user_id').val();--}}
         {{--    var name = $('#name').val();--}}
@@ -219,7 +219,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('items.index') }}",
+                    url: "{{ route('admin.items.index') }}",
                 },
                 columns: [
                     {
@@ -229,6 +229,14 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'edit',
+                        name: 'edit'
+                    },
+                    {
+                        data: 'more',
+                        name: 'more'
                     },
                 ]
             });

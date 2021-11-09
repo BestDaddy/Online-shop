@@ -45,7 +45,7 @@
 {{--            <div class="sidebar-brand-icon rotate-n-15">--}}
 {{--                <i class="fas fa-laugh-wink"></i>--}}
 {{--            </div>--}}
-            <div class="sidebar-brand-text mx-3">Tolling System</div>
+            <div class="sidebar-brand-text mx-3">Online Shop</div>
         </a>
 
         <!-- Divider -->
@@ -84,27 +84,27 @@
 {{--                <span>Мои машины</span></a>--}}
 {{--        </li>--}}
         <!-- Nav Item - Pages Collapse Menu -->
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">--}}
-{{--                <i class="fas fa-fw fa-cog"></i>--}}
-{{--                <i class="fas fa-fw fa-folder"></i>--}}
-{{--                <span>Links</span>--}}
-{{--            </a>--}}
-{{--            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">--}}
-{{--                <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                    @if(Auth::user()->role_id == 1)--}}
-{{--                    <h6 class="collapse-header">Admin links:</h6>--}}
-{{--                    <a class="collapse-item" href="{{route('users.index')}}">Courses</a>--}}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Links</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @if(Auth::user()->isAdmin())
+                    <h6 class="collapse-header">Admin links:</h6>
+                    <a class="collapse-item" href="{{route('admin.items.index')}}">Items</a>
 {{--                    <a class="collapse-item" href="{{route('roads.index')}}">Roads</a>--}}
 {{--                    <a class="collapse-item" href="{{route('users.index')}}">Users</a>--}}
-{{--                    @endif--}}
+                    @endif
 {{--                    <h6 class="collapse-header">Custom links:</h6>--}}
 {{--                    <a class="collapse-item" href="{{route('cars.index')}}">My Cars</a>--}}
 {{--                    <a class="collapse-item" href="{{route('myCourses')}}">My courses</a>--}}
 {{--                    <a class="collapse-item" href="{{route('myGroups')}}">My groups</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+                </div>
+            </div>
+        </li>
 
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -212,7 +212,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; ELDAR LLP 2021</span>
+                    <span>Copyright &copy; GEHENNA LLP 2021</span>
                 </div>
             </div>
         </footer>
