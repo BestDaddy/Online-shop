@@ -27,7 +27,6 @@ Route::group(['namespace' => 'Web'] , function () {
         Route::resource('items', 'ItemsController', ['only' => ['index', 'show', 'store', 'edit']]);
     });
 
-    Route::get('/test', 'ItemsController@index');
 //    Route::resources([
 //        'items'              => 'ItemsController',
 //    ]);

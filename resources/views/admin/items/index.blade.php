@@ -100,7 +100,7 @@
 @endsection
 
 
-@section('sphp cripts')
+@section('scripts')
     <script>
         function add() {
             $('#form-errors').html("");
