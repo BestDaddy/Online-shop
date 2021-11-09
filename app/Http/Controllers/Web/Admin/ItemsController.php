@@ -20,7 +20,7 @@ class ItemsController extends Controller
 
     public function index()
     {
-        return $this->itemsService->datatables(Item::TABLE_NAME);
+        return $this->itemsService->baseDataTables();
     }
 
     public function show($id)

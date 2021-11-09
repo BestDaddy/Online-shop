@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table = 'items';
-    public const TABLE_NAME = 'items';
 
     protected $fillable = [
         'subcategory_id', 'name', 'description',

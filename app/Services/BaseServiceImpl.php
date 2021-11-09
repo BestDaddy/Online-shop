@@ -128,7 +128,7 @@ class BaseServiceImpl implements BaseService
         return $this->model->updateOrCreate($params, $attributes);
     }
 
-    public function dataTables($table_name)
+    public function baseDataTables()
     {
         if(request()->ajax()) {
             return datatables()->of($this->model->query())
@@ -139,16 +139,16 @@ class BaseServiceImpl implements BaseService
                          onclick="editModel(event.target)">
                          <i class="fas fa-edit" data-id="'.$data->id.'"></i> Изменить</button>';
                 })
-                ->addColumn('more', function ($data) use ($table_name) {
+                ->addColumn('more', function ($data) {
                     return '<a
                         class="text-decoration-none"
-                        href="'.route('admin.'. $table_name .'.show', $data->id).'">
+                        href="'.route('admin.'. $this->model->getTable() .'.show', $data->id).'">
                         <button class="btn btn-primary btn-sm btn-block">Подробнее</button></a>';
                 })
                 ->rawColumns(['more', 'edit'])
                 ->make(true);
         }
-        return view('admin.' . $table_name .'.index');
+        return view('admin.' . $this->model->getTable() .'.index');
     }
 }
 

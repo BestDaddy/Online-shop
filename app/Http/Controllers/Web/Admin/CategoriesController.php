@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Services\Items\CategoriesService;
 use Illuminate\Http\Request;
 
@@ -17,6 +16,6 @@ class CategoriesController extends Controller
 
     public function index()
     {
-        return $this->categoriesService->datatables(Category::TABLE_NAME);
+        return $this->categoriesService->baseDataTables();
     }
 }
