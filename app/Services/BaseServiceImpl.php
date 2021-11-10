@@ -128,16 +128,22 @@ class BaseServiceImpl implements BaseService
         return $this->model->updateOrCreate($params, $attributes);
     }
 
-    public function baseDataTables()
+    public function baseDataTables(array $params = [])
     {
         if(request()->ajax()) {
-            return datatables()->of($this->model->query())
+            $query = $this->model->query();
+
+            foreach ($params as $field => $value) {
+                $query = $query->where($field, $value);
+            }
+
+            return datatables()->of($query)
                 ->addColumn('edit', function($data){
                     return  '<button
-                         class=" btn btn-primary btn-sm btn-block "
-                         data-id="'.$data->id.'"
-                         onclick="editModel(event.target)">
-                         <i class="fas fa-edit" data-id="'.$data->id.'"></i> Изменить</button>';
+                        class=" btn btn-primary btn-sm btn-block "
+                        data-id="'.$data->id.'"
+                        onclick="editModel(event.target)">
+                        <i class="fas fa-edit" data-id="'.$data->id.'"></i> Изменить</button>';
                 })
                 ->addColumn('more', function ($data) {
                     return '<a
@@ -148,7 +154,7 @@ class BaseServiceImpl implements BaseService
                 ->rawColumns(['more', 'edit'])
                 ->make(true);
         }
-        return view('admin.' . $this->model->getTable() .'.index');
+        return view('admin.' . $this->model->getTable() .'.index', compact('params'));
     }
 }
 

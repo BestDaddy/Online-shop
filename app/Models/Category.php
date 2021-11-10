@@ -8,6 +8,6 @@ class Category extends Model
 {
     public $fillable = [
         'name',
-        ''
+        'order'
     ];
 }

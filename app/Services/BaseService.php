@@ -88,6 +88,6 @@ interface BaseService
      */
     public function updateOrCreate(array $params,  array $attributes): Model;
 
-    public function baseDataTables();
+    public function baseDataTables(array $params = []);
 }
 

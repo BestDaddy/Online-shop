@@ -42,19 +42,21 @@
                         <input type="hidden" name="model_id" id="model_id">
                         <div class="row">
                             <div class="col">
-                                <div class="form-group">
-                                    <label for="name">Название</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="name"
-                                           name="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="order">Порядок</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="order"
-                                           name="order">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="name">Название</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="name"
+                                               name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="order">Порядок</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="order"
+                                               name="order">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -87,9 +89,6 @@
 @section('scripts')
     <script>
         function postModal() {
-            $('#model_id').val('');
-            $('#name').val('');
-            $('#order').val('');
             $('#form-errors').html("");
             $('#delete-button').hide();
             $('#staticBackdropLabel').text("Создать");
@@ -98,8 +97,10 @@
 
         function deleteModel() {
             var id = $('#model_id').val();
-            let _url = `/admin/categories/${id}`;
+            let _url = `/users/${id}`;
+
             let _token   = $('meta[name="csrf-token"]').attr('content');
+
             $.ajax({
                 url: _url,
                 type: 'DELETE',
@@ -107,7 +108,7 @@
                     _token: _token
                 },
                 success: function(response) {
-                    $('#table-model').DataTable().ajax.reload();
+                    $('#user_table').DataTable().ajax.reload();
                     $('#post-modal').modal('hide');
                 }
             });
@@ -118,7 +119,7 @@
             $('#staticBackdropLabel').text("Редактировать");
             $('#form-errors').html("");
             var id  = $(event).data("id");
-            let _url = `/admin/categories/${id}/edit`;
+            let _url = `/admin/items/${id}/edit`;
             $.ajax({
                 url: _url,
                 type: "GET",
@@ -126,7 +127,6 @@
                     if(response) {
                         $('#model_id').val(response.id);
                         $('#name').val(response.name);
-                        $('#order').val(response.order);
                         $('#post-modal').modal('show');
                     }
                 }
@@ -138,17 +138,18 @@
             var order = $('#order').val();
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "{{ route('admin.categories.store') }}",
+                url: "{{ route('admin.subcategories.store') }}",
                 type: "POST",
                 data: {
                     id: id,
                     name: name,
                     order: order,
+                    category_id: '{{ $params['category_id'] }}',
                     _token: _token
                 },
                 success: function(response) {
                     if(response.code == 200) {
-                        $('#model_id').val('');
+                        $('#user_id').val('');
                         $('#table-model').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }
@@ -176,11 +177,10 @@
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
                 },
-                order: [[ 2, "asc" ]],
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.categories.index') }}",
+                    url: "{{ route('admin.categories.show', $params['category_id']) }}",
                 },
                 columns: [
                     {

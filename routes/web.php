@@ -25,7 +25,8 @@ Route::group(['namespace' => 'Web'] , function () {
 
     Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
         Route::resource('items', 'ItemsController', ['only' => ['index', 'show', 'store', 'edit']]);
-        Route::resource('categories', 'CategoriesController', ['only' => ['index', 'show', 'store', 'edit']]);
+        Route::resource('categories', 'CategoriesController', ['only' => ['index', 'show', 'store', 'edit', 'destroy']]);
+        Route::resource('subcategories', 'SubcategoriesController', ['only' => ['show', 'store', 'edit', 'destroy']]);
     });
 });
 
