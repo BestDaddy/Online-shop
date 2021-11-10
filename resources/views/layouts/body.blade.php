@@ -97,7 +97,7 @@
                     _token: _token
                 },
                 success: function(response) {
-                    $('#user_table').DataTable().ajax.reload();
+                    $('#table-model').DataTable().ajax.reload();
                     $('#post-modal').modal('hide');
                 }
             });

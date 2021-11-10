@@ -18,9 +18,8 @@
             <thead>
             <tr>
                 <th width="5%">ID</th>
-                <th width="55%">Title</th>
+                <th width="70%">Title</th>
                 <th width="10%">Order</th>
-                <th width="15%"></th>
                 <th width="15%"></th>
             </tr>
             </thead>
@@ -97,7 +96,7 @@
 
         function deleteModel() {
             var id = $('#model_id').val();
-            let _url = `/users/${id}`;
+            let _url = `/admin/subcategories/${id}`;
 
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
@@ -108,7 +107,7 @@
                     _token: _token
                 },
                 success: function(response) {
-                    $('#user_table').DataTable().ajax.reload();
+                    $('#table-model').DataTable().ajax.reload();
                     $('#post-modal').modal('hide');
                 }
             });
@@ -119,7 +118,7 @@
             $('#staticBackdropLabel').text("Редактировать");
             $('#form-errors').html("");
             var id  = $(event).data("id");
-            let _url = `/admin/items/${id}/edit`;
+            let _url = `/admin/subcategories/${id}/edit`;
             $.ajax({
                 url: _url,
                 type: "GET",
@@ -127,6 +126,7 @@
                     if(response) {
                         $('#model_id').val(response.id);
                         $('#name').val(response.name);
+                        $('#order').val(response.order);
                         $('#post-modal').modal('show');
                     }
                 }
@@ -198,10 +198,6 @@
                     {
                         data: 'edit',
                         name: 'edit'
-                    },
-                    {
-                        data: 'more',
-                        name: 'more'
                     },
                 ]
             });

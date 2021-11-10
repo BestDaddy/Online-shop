@@ -31,4 +31,20 @@ class SubcategoriesController extends Controller
         return response()->json(['code'=>200, 'message'=>'Model saved successfully', 'data' => $category], 200);
     }
 
+    public function edit($id): \Illuminate\Http\JsonResponse
+    {
+        return $this->subcategoriesService->findJson($id);
+    }
+
+    public function destroy($id): \Illuminate\Http\JsonResponse
+    {
+        $subcategory = $this->subcategoriesService->delete($id);
+        return response()->json(['code'=>200, 'message'=>'Model deleted successfully', 'data' => $subcategory], 200);
+    }
+
+    public function show($id): \Illuminate\Http\RedirectResponse
+    {
+        return redirect()->back();
+    }
+
 }
