@@ -26,7 +26,11 @@ class ItemsController extends Controller
         if(request()->ajax())
             return $this->itemsService->baseDataTables();
 
-        $categories = $this->categoriesService->allWith(['subcategories']);
+        $categories = $this->categoriesService->allWith([
+            'subcategories' => function ($q) {
+                $q->select('id', 'name', 'category_id');
+            }
+        ]);
 
         return view('admin.items.index', compact('categories'));
     }
@@ -39,21 +43,23 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $error = Validator::make($request->all(), array(
-//            'first_name'=> ['required'],
-//            'phone'     => ['numeric', 'unique:users', 'required'],
-//            'email'     => ['nullable','email', 'unique:users',],
-//            'nickname'  => ['nullable|unique:users,nickname'],
-//            'role_id'   => ['required'],
+            'name'          => ['required'],
+            'order'         => ['numeric', 'required'],
+            'description'   => ['required'],
         ));
 
         if($error->fails())
             return response()->json(['errors' => $error->errors()->all()]);
 
-        return  $this->itemsService->updateOrCreate(['id' => $request->input('id')], $request->toArray());
+        return response()->json([
+            'code'=>200,
+            'message'=>'Model saved successfully',
+            'data' => $this->itemsService->updateOrCreate(['id' => $request->input('id')], $request->toArray())], 200
+        );
     }
 
     public function edit($id): \Illuminate\Http\JsonResponse
     {
-        return $this->itemsService->findJson($id);
+        return $this->itemsService->findWithJson($id, ['subcategory']);
     }
 }

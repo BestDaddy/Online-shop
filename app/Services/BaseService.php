@@ -65,6 +65,13 @@ interface BaseService
     /**
      * @param $id
      * @param array $relationships
+     * @return JsonResponse
+     */
+    public function findWithJson($id, array $relationships): JsonResponse;
+
+    /**
+     * @param $id
+     * @param array $relationships
      * @return Model
      */
     public function findWith($id, array $relationships);

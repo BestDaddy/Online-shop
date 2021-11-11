@@ -12,7 +12,7 @@
     </div>
     <br>
     <div class="table-responsive">
-        <table class=" table table-bordered table-striped" id="user_table" width="100%">
+        <table class=" table table-bordered table-striped" id="table-model" width="100%">
             <thead>
             <tr>
                 <th width="5%">ID</th>
@@ -37,34 +37,50 @@
                 </div>
                 <div class="modal-body">
                     <form name="Form" class="form-horizontal">
-                        <input type="hidden" name="user_id" id="user_id">
+                        <input type="hidden" name="model_id" id="model_id">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="inputName">Имя</label>
+                                    <label for="name">Название</label>
                                     <input type="text"
                                            class="form-control"
                                            id="name"
                                            name="name">
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPhone">Почта</label>
-                            <input type="email"
-                                   class="form-control"
-                                   id="email"
-                                   name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Пароль</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="password" name="password">
-                                <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button" onclick="showPassword()">Показать</button>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="order">Порядок</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="order"
+                                           name="order">
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="description">Описание</label>
+                            <textarea class="form-control"
+                                      id="description"
+                                      name="description"
+                                      rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Категорию</label>
+                            <select name="select_category" id="select_category" class="form-control">
+                                <option disabled selected>Выбирите категорию</option>
+{{--                                @foreach($categories as $category)--}}
+{{--                                    <option value="{{$category->id}}">{{$category->name}}</option>--}}
+{{--                                @endforeach--}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Подкатегорию</label>
+                            <select name="select_subcategory" id="select_subcategory" class="form-control">
+                                <option disabled selected>Выбирите подкатегорию</option>
+                            </select>
+                        </div>
+
                         <div class="form-group" id="form-errors">
                             <div class="alert alert-danger">
                                 <ul>
@@ -75,14 +91,17 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-
-                    {{--                    <div class="col-9">--}}
-                    {{--                        <div  class="collapse" id="collapseExample">--}}
-                    {{--                            <button type="button" class="btn btn-danger" onclick="deleteUser()">Удалить</button>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                    <button type="button" class="btn btn-primary" onclick="save()">Сохранить</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-1" role="group" aria-label="Second group">
+                            <div class="collapse" id="delete-button">
+                                <button type="button" class="btn btn-danger" onclick="deleteModel()">Удалить</button>
+                            </div>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button type="button" class="btn btn-primary" onclick="saveModel()">Сохранить</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,13 +111,55 @@
 
 @section('scripts')
     <script>
+        var categories = [];
+        $(document).ready(function() {
+            $.ajax({
+                url: `{{route('admin.categoriesWithSubcategories')}}`,
+                type: "GET",
+                success: function(response) {
+                    if(response) {
+                        categories = response;
+                        html = '';
+                        html += '<option disabled selected>Выбирите категорию</option>';
+                        $.each(response, function( i ) {
+                            html += '<option value="'+ response[i].id+'">'+response[i].name+'</option>';
+                        });
+                        $( '#select_category' ).html( html );
+                    }
+                }
+            });
+
+            $('#select_category').change(function(){
+                setSubcategories($('#select_category').val());
+            });
+        });
+
+        function setSubcategories(category_id, subcategory_id = null) {
+            $('#select_category').val(category_id)
+            html = '';
+            $.each( categories, function( i ) {
+                if(categories[i].id == category_id){
+                    subcategories = categories[i].subcategories;
+                }
+            });
+            html += '<option disabled selected>Выбирите подкатегорию</option>';
+            $.each( subcategories, function( i ) {
+                if(subcategories[i].id === subcategory_id)
+                    html += '<option selected value="'+ subcategories[i].id+'">'+subcategories[i].name+'</option>';
+                else
+                    html += '<option value="'+ subcategories[i].id+'">'+subcategories[i].name+'</option>';
+            });
+            $( '#select_subcategory' ).html( html );
+        }
+
         function add() {
-            $('#form-errors').html("");
-            $('#user_id').val('');
-            $('#name').val('');
-            $('#email').val('');
-            $('#role_id').val(2);
-            $('#password').val('');
+            $('#model_id').val('')
+            $('#name').val('')
+            $('#order').val('')
+            $('#description').val('')
+            $('#select_category').val('')
+            $('#select_subcategory').val('')
+            $('#form-errors').html('');
             $('#collapseExample').hide();
             $('#post-modal').modal('show');
 
@@ -115,41 +176,39 @@
                 type: "GET",
                 success: function(response) {
                     if(response) {
-                        $('#user_id').val(response.id);
+                        $('#model_id').val(response.id);
                         $('#name').val(response.name);
-                        $('#email').val(response.email);
-                        $('#role_id').val(response.role_id);
+                        $('#order').val(response.order);
+                        $('#description').val(response.description);
+                        if(response.subcategory)
+                            setSubcategories(response.subcategory.category_id, response.subcategory_id);
+                        $('#select_subcategory').val(response.subcategory_id);
                         $('#post-modal').modal('show');
                     }
                 }
             });
         }
-        function save() {
-            var id = $('#user_id').val();
-            var name = $('#name').val();
-            var email = $('#email').val();
-            var role_id = $('#role_id').val();
-            var password = $('#password').val();
+        function saveModel() {
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: "{{ route('admin.items.store') }}",
                 type: "POST",
                 data: {
-                    id: id,
-                    name: name,
-                    email: email,
-                    password: password,
-                    role_id: role_id,
+                    id: $('#model_id').val(),
+                    name: $('#name').val(),
+                    order: $('#order').val(),
+                    description: $('#description').val(),
+                    subcategory_id: $('#select_subcategory').val(),
                     _token: _token
                 },
                 success: function(response) {
                     if(response.code == 200) {
-                        $('#user_id').val('');
+                        $('#model_id').val('')
                         $('#name').val('');
-                        $('#email').val('');
-                        $('#role_id').val(2);
-                        $('#password').val('');
-                        $('#user_table').DataTable().ajax.reload();
+                        $('#order').val('');
+                        $('#description').val(2);
+                        $('#select_subcategory').val('');
+                        $('#table-model').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }
                     else{
@@ -172,7 +231,7 @@
         }
         $(document).ready(function() {
 
-            $('#user_table').DataTable({
+            $('#table-model').DataTable({
                 // aoColumnDefs: [
                 //     { "sClass": "my_class", "aTargets": [ 0 ] }
                 // ],

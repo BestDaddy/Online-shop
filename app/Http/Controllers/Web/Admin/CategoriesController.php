@@ -53,4 +53,13 @@ class CategoriesController extends Controller
     {
         return $this->subcategoriesService->baseDataTables(['category_id' => $id]);
     }
+
+    public function categoriesWithSubcategories()
+    {
+        return $this->categoriesService->allWith([
+            'subcategories' => function ($q) {
+                $q->select('id', 'name', 'category_id');
+            },
+        ]);
+    }
 }

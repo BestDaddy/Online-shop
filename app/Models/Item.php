@@ -13,7 +13,8 @@ class Item extends Model
         'count', 'order', 'status'
     ];
 
-    public function subcategory() {
+    public function subcategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
 }
