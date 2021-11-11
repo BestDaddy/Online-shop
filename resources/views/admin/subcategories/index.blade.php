@@ -88,7 +88,10 @@
 @section('scripts')
     <script>
         function postModal() {
-            $('#form-errors').html("");
+            $('#model_id').val('');
+            $('#name').val('');
+            $('#order').val('');
+            $('#form-errors').html('');
             $('#delete-button').hide();
             $('#staticBackdropLabel').text("Создать");
             $('#post-modal').modal('show');
@@ -149,7 +152,9 @@
                 },
                 success: function(response) {
                     if(response.code == 200) {
-                        $('#user_id').val('');
+                        $('#model_id').val('');
+                        $('#name').val('');
+                        $('#order').val('');
                         $('#table-model').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }

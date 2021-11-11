@@ -78,7 +78,7 @@
 @section('scripts')
     <script>
         function postModal() {
-            $('#form-errors').html("");
+            $('#form-errors').html('');
             $('#delete-button').hide();
             $('#staticBackdropLabel').text("Создать");
             $('#post-modal').modal('show');
@@ -133,7 +133,7 @@
                 },
                 success: function(response) {
                     if(response.code == 200) {
-                        $('#user_id').val('');
+                        $('#model_id').val('');
                         $('#table-model').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }

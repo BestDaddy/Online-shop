@@ -10,4 +10,14 @@ class Category extends Model
         'name',
         'order'
     ];
+
+    public function subcategories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Subcategory::class, 'category_id');
+    }
+
+    public function subcategory(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Subcategory::class, 'category_id');
+    }
 }
