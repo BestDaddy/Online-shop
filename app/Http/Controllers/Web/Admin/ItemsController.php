@@ -62,4 +62,14 @@ class ItemsController extends Controller
     {
         return $this->itemsService->findWithJson($id, ['subcategory']);
     }
+
+    public function destroy($id): \Illuminate\Http\JsonResponse
+    {
+        $item = $this->itemsService->delete($id);
+        return response()->json([
+            'code'      => 200,
+            'message'   =>'Model deleted successfully',
+            'data'      => $item], 200
+        );
+    }
 }

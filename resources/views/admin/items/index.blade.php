@@ -165,8 +165,25 @@
 
         }
 
+        function deleteModel() {
+            var id = $('#model_id').val();
+            let _url = `/admin/items/${id}`;
+            let _token   = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: _url,
+                type: 'DELETE',
+                data: {
+                    _token: _token
+                },
+                success: function(response) {
+                    $('#table-model').DataTable().ajax.reload();
+                    $('#post-modal').modal('hide');
+                }
+            });
+        }
+
         function editModel (event) {
-            $('#collapseExample').show();
+            $('#delete-button').show();
             $('#staticBackdropLabel').text("Редактировать пользователя");
             $('#form-errors').html("");
             var id  = $(event).data("id");
