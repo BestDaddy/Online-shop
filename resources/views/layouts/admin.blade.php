@@ -65,18 +65,38 @@
         <div class="sidebar-heading">
             Interface
         </div>
-        @if(Auth::user()->isAdmin())
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.items.index')}}">
-                <i class="fas fa-fw fa-boxes"></i>
-                <span>Items</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.categories.index')}}">
-                <i class="fas fa-fw fa-list-alt"></i>
-                <span>Categories</span></a>
-        </li>
+        @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('user.items.index')}}">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>Items Shop</span></a>
+            </li>
+        @else
+            @if(Auth::user()->isAdmin())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('user.items.index')}}">
+                        <i class="fas fa-fw fa-boxes"></i>
+                        <span>Items Shop</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.items.index')}}">
+                        <i class="fas fa-fw fa-boxes"></i>
+                        <span>Items</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.categories.index')}}">
+                        <i class="fas fa-fw fa-list-alt"></i>
+                        <span>Categories</span></a>
+                </li>
+            @elseif(Auth::user()->isUser())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('user.items.index')}}">
+                        <i class="fas fa-fw fa-boxes"></i>
+                        <span>Items Shop</span></a>
+                </li>
+            @endif
         @endif
+
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" href="{{route('cars.index')}}">--}}
 {{--                <i class="fas fa-fw fa-car"></i>--}}
@@ -164,7 +184,7 @@
 
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}} {{Auth::user()->lastName}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
                                 <img class="img-profile rounded-circle" src="https://www.tenforums.com/geek/gars/images/2/types/thumb__ser.png">
                             </a>
                             <!-- Dropdown - User Information -->

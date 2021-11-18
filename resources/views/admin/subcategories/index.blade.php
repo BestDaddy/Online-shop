@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content')
+
     {{--    {{ Breadcrumbs::render('user.index') }}--}}
     <h2>Все товары</h2>
     <hr>

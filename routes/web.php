@@ -30,5 +30,9 @@ Route::group(['namespace' => 'Web'] , function () {
 
         Route::get('/categories-subcategories', 'CategoriesController@categoriesWithSubcategories')->name('categoriesWithSubcategories');
     });
+
+    Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
+        Route::resource('items', 'ItemsController', ['only' => ['index', 'show']]);
+    });
 });
 
