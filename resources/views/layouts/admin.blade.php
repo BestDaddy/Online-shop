@@ -29,6 +29,14 @@
     <!-- Custom styles for this page -->
     <link rel="stylesheet" href="{{ URL::asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" />
 
+    <style>
+        .img-fluid{
+            height:420px;
+            width:auto;/*maintain aspect ratio*/
+            max-width:300px;
+            flex: auto;
+        }
+    </style>
 
 </head>
 
@@ -189,17 +197,17 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ url('/') }}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
+{{--                                <a class="dropdown-item" href="{{ url('/') }}">--}}
+{{--                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+{{--                                    Profile--}}
+{{--                                </a>--}}
+{{--                                <a class="dropdown-item" href="#">--}}
+{{--                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+{{--                                    Settings--}}
+{{--                                </a>--}}
+                                <a class="dropdown-item" href="{{route('user.purchases.index')}}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    Корзина
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" data-toggle="modal" data-target="#logoutModal">

@@ -22,6 +22,7 @@ class ItemsController extends Controller
 
     public function show($id)
     {
-        return $this->itemsService->find($id);
+        $item = $this->itemsService->findWith($id, ['subcategory']);
+        return view('user.items.show', compact('item'));
     }
 }

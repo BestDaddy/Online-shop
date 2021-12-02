@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-
+@section('content')
     {{--    {{ Breadcrumbs::render('user.index') }}--}}
-    <h2>Все товары</h2>
+    <h2>Подкатегории</h2>
     <hr>
     <br>
     <div class="row" style="clear: both;">

@@ -19,6 +19,8 @@ class CreateItemsTable extends Migration
                 ->nullable();
             $table->string('name');
             $table->longText('description');
+            $table->string('image')->nullable();
+            $table->unsignedSmallInteger('price')->default(0);
             $table->unsignedSmallInteger('count')->default(0);
             $table->unsignedSmallInteger('order')->default(1);
             $table->unsignedSmallInteger('status')->default(1);

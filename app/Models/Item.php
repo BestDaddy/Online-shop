@@ -10,7 +10,7 @@ class Item extends Model
 
     protected $fillable = [
         'subcategory_id', 'name', 'description',
-        'count', 'order', 'status'
+        'count', 'order', 'status', 'price', 'image'
     ];
 
     public function subcategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo

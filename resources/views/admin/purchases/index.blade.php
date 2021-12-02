@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-{{--    {{ Breadcrumbs::render('user.index') }}--}}
+    {{--    {{ Breadcrumbs::render('user.index') }}--}}
     <h2>Все товары</h2>
     <hr>
     <br>
@@ -17,7 +17,7 @@
             <tr>
                 <th width="5%">ID</th>
                 <th width="40%">Имя</th>
-{{--                <th width="25%">Роль</th>--}}
+                {{--                <th width="25%">Роль</th>--}}
                 <th width="15%"></th>
                 <th width="15%"></th>
             </tr>
@@ -77,16 +77,16 @@
                         <div class="form-group">
                             <label for="image">Картинка</label>
                             <input type="text" class="form-control"
-                                      id="image"
-                                      name="image">
+                                   id="image"
+                                   name="image">
                         </div>
                         <div class="form-group">
                             <label>Категорию</label>
                             <select name="select_category" id="select_category" class="form-control">
                                 <option disabled selected>Выбирите категорию</option>
-{{--                                @foreach($categories as $category)--}}
-{{--                                    <option value="{{$category->id}}">{{$category->name}}</option>--}}
-{{--                                @endforeach--}}
+                                {{--                                @foreach($categories as $category)--}}
+                                {{--                                    <option value="{{$category->id}}">{{$category->name}}</option>--}}
+                                {{--                                @endforeach--}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -244,7 +244,7 @@
                         $('#order').val('');
                         $('#price').val(0);
                         $('#image').val(''),
-                        $('#description').val(2);
+                            $('#description').val(2);
                         $('#select_subcategory').val('');
                         $('#table-model').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
@@ -279,7 +279,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.items.index') }}",
+                    url: "{{ route('admin.purchases.index') }}",
                 },
                 columns: [
                     {

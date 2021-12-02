@@ -17,6 +17,10 @@ class Purchase extends Model
         'comment',
     ];
 
+    const STATUS_INIT = 1;
+    const STATUS_PAID = 2;
+
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -2,7 +2,7 @@
 
 @section('content')
     {{--    {{ Breadcrumbs::render('user.index') }}--}}
-    <h2>Все товары</h2>
+    <h2>Все категории</h2>
     <hr>
     <br>
     <div class="row" style="clear: both;">
