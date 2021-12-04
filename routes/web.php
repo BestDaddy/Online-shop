@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Web'] , function () {
         Route::resource('purchases', 'PurchasesController', ['only' => ['index']]);
 
         Route::post('/purchases/add-item', 'PurchasesController@addItem')->name('purchases.addItem');
+        Route::get('/cache-items', 'ItemsController@cacheIndex');
     });
 });
 
