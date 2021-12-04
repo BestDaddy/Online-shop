@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Auth', 'middleware' => 'api'], function () {
 });
 
 
-Route::group(['namespace' => 'User'], function () {
+Route::group(['namespace' => 'User', 'middleware' => ['api', 'jwt']], function () {
     Route::resource('items', 'ItemsController')->only(['index', 'show']);
 });
 

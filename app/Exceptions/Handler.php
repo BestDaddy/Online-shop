@@ -91,13 +91,11 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
             return response()->json([
-                'error_code' => ErrorCode::INVALID_TOKEN,
                 'error' => 'Token is invalid',
                 'message' => $exception->getMessage()], 401);
         }
         if ($exception instanceof TokenExpiredException) {
             return response()->json([
-                'error_code' => ErrorCode::EXPIRED_TOKEN,
                 'error' => 'Token expired',
                 'message' => $exception->getMessage()], 401
             );
@@ -105,7 +103,6 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof JWTException) {
             return response()->json([
-                'error_code' => ErrorCode::INVALID_TOKEN,
                 'error' => 'Token not found',
                 'message' => 'Authorization Token not provided'], 400
             );
