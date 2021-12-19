@@ -10,6 +10,8 @@ use App\Services\Items\ItemsService;
 use App\Services\Items\ItemsServiceImpl;
 use App\Services\Items\SubcategoriesService;
 use App\Services\Items\SubcategoriesServiceImpl;
+use App\Services\Purchases\PurchaseItemsService;
+use App\Services\Purchases\PurchaseItemsServiceImpl;
 use App\Services\Purchases\PurchasesService;
 use App\Services\Purchases\PurchasesServiceImpl;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +24,7 @@ class SystemServiceProvider extends ServiceProvider
         $this->app->bind(CategoriesService::class, CategoriesServiceImpl::class);
         $this->app->bind(SubcategoriesService::class, SubcategoriesServiceImpl::class);
         $this->app->bind(PurchasesService::class, PurchasesServiceImpl::class);
+        $this->app->bind(PurchaseItemsService::class, PurchaseItemsServiceImpl::class);
     }
 
     public function boot()

@@ -35,8 +35,9 @@ Route::group(['namespace' => 'Web'] , function () {
     Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
         Route::resource('items', 'ItemsController', ['only' => ['index', 'show']]);
         Route::resource('purchases', 'PurchasesController', ['only' => ['index']]);
+        Route::resource('purchase-items', 'PurchaseItemsController', ['only' => ['index', 'edit', 'store'], 'middleware' => ['auth']] );
 
-        Route::post('/purchases/add-item', 'PurchasesController@addItem')->name('purchases.addItem');
+//        Route::post('/purchase-items/add-item', 'PurchaseItemsController@addItem')->middleware(['auth'])->name('purchase-items.add-item');
         Route::get('/cache-items', 'ItemsController@cacheIndex');
     });
 });

@@ -74,7 +74,12 @@
                             </div>
                         </div>
                         <div class="btn-group" role="group" aria-label="Third group">
-                            <button type="button" class="btn btn-primary" onclick="saveModel()">Добавить</button>
+                            @guest
+                                <a class="btn btn-primary" href="{{route('login')}}">Добавить</a>
+{{--                                <button type="button" class="btn btn-primary">Добавить</button>--}}
+                            @else
+                                <button type="button" class="btn btn-primary" onclick="saveModel()">Добавить</button>
+                            @endif
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                         </div>
                     </div>
@@ -101,7 +106,7 @@
         function saveModel() {
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "{{ route('user.purchases.addItem') }}",
+                url: "{{ route('user.purchase-items.store') }}",
                 type: "POST",
                 data: {
                     item_id: $('#model_id').val(),
