@@ -25,9 +25,7 @@ class PurchaseItemsController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
         $purchase = $this->purchasesService->initPurchase();
-        $total_price = $this->purchaseItemsService->purchaseTotalPrice($purchase->id);
 
         if(request()->ajax()) {
             return datatables()->of(
@@ -50,7 +48,7 @@ class PurchaseItemsController extends Controller
                 ->make(true);
         }
 
-        return view('user.purchases.index', compact('total_price'));
+        return view('user.purchases.index',);
     }
 
     public function store(Request $request): \Illuminate\Http\JsonResponse
@@ -73,8 +71,24 @@ class PurchaseItemsController extends Controller
         );
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\Http\JsonResponse
     {
-        $this->purchaseItemsService->findWithJson($id, ['item']);
+        return $this->purchaseItemsService->findWithJson($id, ['item']);
+    }
+
+    public function destroy($id): \Illuminate\Http\JsonResponse
+    {
+        $item = $this->purchaseItemsService->delete($id);
+        return response()->json([
+            'code'      => 200,
+            'message'   =>'Model deleted successfully',
+            'data'      => $item], 200
+        );
+    }
+
+    public function totalPrice(): \Illuminate\Http\JsonResponse
+    {
+        $purchase = $this->purchasesService->initPurchase();
+        return response()->json($this->purchaseItemsService->purchaseTotalPrice($purchase->id), 200);
     }
 }
