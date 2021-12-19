@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Web'] , function () {
         Route::resource('purchases', 'PurchasesController', ['only' => ['index']]);
         Route::resource('purchase-items', 'PurchaseItemsController', ['only' => ['index', 'edit', 'store', 'destroy'], 'middleware' => ['auth']] );
 
+        Route::get('/items/subcategories/{id}', 'ItemsController@subcategory')->name('items.subcategory');
         Route::get('/purchase-items/total', 'PurchaseItemsController@totalPrice')->middleware(['auth'])->name('purchase-items.total');
         Route::get('/cache-items', 'ItemsController@cacheIndex');
     });

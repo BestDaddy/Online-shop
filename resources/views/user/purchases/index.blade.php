@@ -127,6 +127,7 @@
                     _token: _token
                 },
                 success: function(response) {
+                    total();
                     $('#table-model').DataTable().ajax.reload();
                     $('#post-modal').modal('hide');
                 }
